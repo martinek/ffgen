@@ -58,19 +58,19 @@ class FanficStory
           title: @title,
           body: get_text(doc.xpath('//*[@id="storytext"]'))
       }
-      @chapters_loaded = true
+    else
+      load_chapters
     end
   end
 
   def load_chapters
-    if !@chapters_loaded and chapters.any?
+    if chapters.any?
       chapters.each do |chap|
         chap_uri = chapter_uri(chap[:id])
         puts "Loading chapter #{chap[:id]}. - #{chap[:title]}: #{chap_uri}"
         doc = Nokogiri::HTML(open(chap_uri))
         chap[:body] = get_text(doc.xpath('//*[@id="storytext"]'))
       end
-      @chapters_loaded = true
     end
   end
 
