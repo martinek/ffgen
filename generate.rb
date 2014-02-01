@@ -51,7 +51,7 @@ get '/' do
       <form class="form" action="story.epub" method="post">
         <h2 class="form-heading">Url:</h2>
         <input name="url" class="form-control" placeholder="https://www.fanfiction.com/s/#story_id" required autofocus />
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Generate image!</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Generate .epub!</button>
       </form>
 
     </div> <!-- /container -->
