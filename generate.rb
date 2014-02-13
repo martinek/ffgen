@@ -19,7 +19,6 @@ end
 generate_file = lambda do
   story = FanficStory.new(params['url'])
   story.load_details
-  story.load_chapters
 
   gen = Generator.new
   gen.build(story)
