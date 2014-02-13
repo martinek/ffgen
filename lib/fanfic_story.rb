@@ -6,7 +6,7 @@ class FanficStory
                 :rating, :language, :genre, :chapters
 
   def initialize(uri)
-    @id = uri[/(http|https):\/\/(www)?.fanfiction.net\/s\/(\d+).*/, 3]
+    @id = uri[/(http|https):\/\/(www|m)?.fanfiction.net\/s\/(\d+).*/, 3]
     raise Exception.new "Cannot parse uri: #{uri}" unless id
     @chapters_loaded = false
   end
