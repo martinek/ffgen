@@ -30,3 +30,7 @@ end
 
 get '/story.epub', &generate_file
 post '/story.epub', &generate_file
+
+get '/preview' do
+  FanficStory.preview(params['url'])
+end

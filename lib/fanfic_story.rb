@@ -56,7 +56,7 @@ class FanficStory
       @chapters << {
           id: 0,
           title: @title,
-          body: get_text(doc.xpath('//*[@id="storytext"]'))
+          body: FanficStory.get_text(doc.xpath('//*[@id="storytext"]'))
       }
     else
       load_chapters
@@ -69,15 +69,44 @@ class FanficStory
         chap_uri = chapter_uri(chap[:id])
         puts "Loading chapter #{chap[:id]}. - #{chap[:title]}: #{chap_uri}"
         doc = Nokogiri::HTML(open(chap_uri))
-        chap[:body] = get_text(doc.xpath('//*[@id="storytext"]'))
+        chap[:body] = FanficStory.get_text(doc.xpath('//*[@id="storytext"]'))
       end
     end
   end
 
-  def get_text(node)
-    node.search('.//hr').remove
+  def self.preview(url)
+    raise ArgumentError.new "Missing argument: url" unless url
+
+    #doc = self.story(url)
+    doc = Nokogiri::HTML(open(url))
+    body = get_text(doc.xpath('//*[@id="storytext"]'))
+    body.to_s
+  end
+
+  def self.get_text(node)
+    node.search('.//hr').each do |hr|
+      hr.name = 'p'
+      hr.content = '--- === ---'
+      hr.attributes.keys.each { |attr| hr.remove_attribute attr }
+      hr['style'] = 'text-align: center'
+    end
     node.search('.//br').remove
     node.inner_html
+  end
+
+  def self.story(url)
+    file_name = 'test.xml'
+    if File.exist? file_name
+      puts "Loading from file: #{file_name}"
+      buffer = File.open(file_name,'r').read
+      doc = Nokogiri::XML(buffer)
+    else
+      puts "Loading from url: #{url}"
+      doc = Nokogiri::HTML(open(url))
+      File.open(file_name, 'w') {|f| doc.write_xml_to f}
+    end
+
+    doc
   end
 
 end
