@@ -17,7 +17,7 @@ get '/' do
 end
 
 generate_file = lambda do
-  story = FanficStory.new(params['url'])
+  story = Fanfic::Story.new(params['url'])
   story.load_details
 
   gen = Generator.new
@@ -33,4 +33,12 @@ post '/story.epub', &generate_file
 
 get '/preview' do
   FanficStory.preview(params['url'])
+end
+
+get '/:handle' do
+
+  @profile = Fanfic::Profile.new(params[:handle])
+
+
+  haml :profile
 end

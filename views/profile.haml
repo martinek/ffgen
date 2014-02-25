@@ -1,0 +1,12 @@
+- @profile.favstories.each do |story|
+  .panel{class: (story[:statusid] == 2 ? 'panel-success' : 'panel-info')}
+    .panel-heading
+      .panel-title
+        = story[:category]
+        >
+        %a{href: story[:url]}= story[:title]
+        - if story[:statusid] == 2
+          (Complete)
+
+        .pull-right
+          = story[:dateupdate]

@@ -5,7 +5,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'gepub'
 
-require './lib/fanfic_story'
+require './lib/fanfic'
 require './lib/generator'
 require './generate'
 
