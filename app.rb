@@ -1,6 +1,3 @@
-require 'feedzirra'
-require 'pry'
-
 get '/' do
 
   uri = 'https://www.fanfiction.net/atom/l/?&cid1=10896&r=103&s=1'

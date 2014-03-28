@@ -1,12 +1,18 @@
 require 'bundler/setup'
-require 'date'
 require 'sinatra'
+
+require 'date'
+require 'feedzirra'
 require 'nokogiri'
 require 'open-uri'
 require 'gepub'
 
-require './lib/fanfic'
-require './lib/generator'
+require 'pry'
+
+Dir['./lib/*.rb'].each do |file|
+  require file
+end
 
 require './app'
+
 run Sinatra::Application
