@@ -7,6 +7,6 @@ require 'gepub'
 
 require './lib/fanfic'
 require './lib/generator'
-require './generate'
 
+require './app'
 run Sinatra::Application
