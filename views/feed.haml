@@ -1,0 +1,18 @@
+.list-group
+  .list-group-item
+    %h2.list-group-item-heading
+      = @feed.title
+
+  %form(action='story.epub' method='post')
+    - @feed.entries.each do |entry|
+      .list-group-item
+        %h4.list-group-item-heading
+          %button.btn.btn-primary.pull-right(type='submit' name='url'){value: entry.links[0]}
+            %span.glyphicon.glyphicon-download
+            Download ePub
+
+          %a{href: entry.links[0], target: :new}
+            = entry.title
+          %small= entry.published
+        %p.list-group-item-text
+          = entry.summary

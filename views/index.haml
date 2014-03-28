@@ -1,28 +1,16 @@
-.list-group
-  .list-group-item
-    %form.form{action: 'story.epub', method: 'get'}
-      .input-group
-        %span.input-group-addon Story url:
-        %input.form-control{autofocus: true, name: 'url', placeholder: 'https://www.fanfiction.com/s/#story_id', required: true}
-        %span.input-group-btn
-          %button.btn.btn-primary{type: 'submit'}
+.panel.panel-default
+  .panel-body
+    %form{action: 'story.epub', method: 'post'}
+      .row
+        .col-sm-9
+          .input-group
+            %span.input-group-addon Url:
+            %input.form-control{autofocus: true, name: 'url', placeholder: 'https://www.fanfiction.com/s/#story_id', required: true}
+
+        .col-sm-3
+          %button.btn.btn-primary.btn-block{type: 'submit'}
             %span.glyphicon.glyphicon-download
             Download ePub
 
-
-  .list-group-item
-    %h2.list-group-item-heading
-      = @feed.title
-
-  - @feed.entries.each do |entry|
-    .list-group-item
-      %h4.list-group-item-heading
-        %a.btn.btn-primary.pull-right{href: "/story.epub?url=#{entry.links[0]}"}
-          %span.glyphicon.glyphicon-download
-          Download ePub
-
-        %a{href: entry.links[0], target: :new}
-          = entry.title
-        %small= entry.published
-      %p.list-group-item-text
-        = entry.summary
+  .list-group.text-center
+    %a.list-group-item(href='/feed') Feed

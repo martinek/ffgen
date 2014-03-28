@@ -1,5 +1,8 @@
 get '/' do
+  haml :index
+end
 
+get '/feed' do
   uri = 'https://www.fanfiction.net/atom/l/?&cid1=10896&r=103&s=1'
 
   if params['feed']
@@ -7,10 +10,8 @@ get '/' do
     uri = feed + params.to_query
   end
 
-  puts "Feed uri: #{uri}"
-
   @feed = Feedzirra::Feed.fetch_and_parse(uri)
-  haml :index
+  haml :feed
 end
 
 generate_file = lambda do
@@ -25,7 +26,7 @@ generate_file = lambda do
   gen.result_stream.string
 end
 
-get '/story.epub', &generate_file
+#get '/story.epub', &generate_file
 post '/story.epub', &generate_file
 
 get '/preview' do
