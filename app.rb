@@ -33,10 +33,10 @@ get '/preview' do
   FanficStory.preview(params['url'])
 end
 
-get '/:handle' do
-
-  @profile = Fanfic::Profile.new(params[:handle])
-
-
-  haml :profile
-end
+#get '/:handle' do
+#
+#  @profile = Fanfic::Profile.new(params[:handle])
+#
+#
+#  haml :profile
+#end
