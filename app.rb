@@ -1,3 +1,15 @@
+require 'dotenv'
+
+Dotenv.load
+
+require 'sinatra'
+require 'sinatra/activerecord'
+require './config/environments' #database configuration
+
+Dir['./models/*.rb'].each do |file|
+  require file
+end
+
 get '/' do
   haml :index
 end

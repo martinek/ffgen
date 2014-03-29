@@ -1,5 +1,4 @@
 require 'bundler/setup'
-require 'sinatra'
 
 require 'date'
 require 'feedjira'
