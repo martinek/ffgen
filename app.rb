@@ -10,7 +10,7 @@ get '/feed' do
     uri = feed + params.to_query
   end
 
-  @feed = Feedzirra::Feed.fetch_and_parse(uri)
+  @feed = Feedjira::Feed.fetch_and_parse(uri)
   haml :feed
 end
 

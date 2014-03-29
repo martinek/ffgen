@@ -2,7 +2,7 @@ require 'bundler/setup'
 require 'sinatra'
 
 require 'date'
-require 'feedzirra'
+require 'feedjira'
 require 'nokogiri'
 require 'open-uri'
 require 'gepub'

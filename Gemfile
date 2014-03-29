@@ -4,7 +4,7 @@ gem 'sinatra'
 gem 'haml'
 
 gem 'nokogiri'
-gem 'feedzirra'
+gem 'feedjira'
 gem 'gepub'
 
 gem 'pry'
