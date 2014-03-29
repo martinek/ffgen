@@ -26,7 +26,7 @@ get '/feed' do
   haml :feed
 end
 
-generate_file = lambda do
+post '/story.epub' do
   story = Fanfic::Story.new(params['url'])
   story.load_details
 
@@ -37,9 +37,6 @@ generate_file = lambda do
   attachment "#{story.title.gsub(' ', '_')}.epub"
   gen.result_stream.string
 end
-
-#get '/story.epub', &generate_file
-post '/story.epub', &generate_file
 
 get '/preview' do
   FanficStory.preview(params['url'])
