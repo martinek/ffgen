@@ -1,16 +1,62 @@
 .panel.panel-default
   .panel-body
-    %form{action: 'story.epub', method: 'post'}
+    %form(action='story.epub' method='post')
       .row
         .col-sm-9
           .input-group
             %span.input-group-addon Url:
-            %input.form-control{autofocus: true, name: 'url', placeholder: 'https://www.fanfiction.com/s/#story_id', required: true}
+            %input.form-control(name='url' placeholder='https://www.fanfiction.com/s/#story_id' required='true' autofocus)
 
         .col-sm-3
-          %button.btn.btn-primary.btn-block{type: 'submit'}
+          %button.btn.btn-primary.btn-block(type='submit')
             %span.glyphicon.glyphicon-download
             Download ePub
 
+    %br
+
+    %form(action='https://www.fanfiction.net/search.php' method='get' target='_blank')
+      %input(type='hidden' name='type' value='story')
+      %input(type='hidden' name='match' value='title')
+      %input(type='hidden' name='categoryid' value='10896')
+      %input(type='hidden' name='ready' value='1')
+      .row
+        .col-sm-9
+          .input-group
+            %span.input-group-addon Story title:
+            %input.form-control(name='keywords' placeholder='Frozen' required)
+
+        .col-sm-3
+          %button.btn.btn-primary.btn-block(type='submit')
+            %span.glyphicon.glyphicon-download
+            Search Frozen category
+
   .list-group.text-center
     %a.list-group-item(href='/feed') Feed
+
+.list-group
+  .list-group-item.text-center
+    %h2 To read list
+
+  - @stories.each do |story|
+    .list-group-item
+      %form(action='delete_story' method='post')
+        %button.btn.btn-danger.btn-xs.pull-right(type='submit' name='id'){value: story.id}
+          %span.glyphicon.glyphicon-remove
+
+      %form(action='story.epub' method='post')
+        %button.btn.btn-primary.btn-xs.pull-left(type='submit' name='url'){value: story.url}
+          %span.glyphicon.glyphicon-download
+
+      &nbsp;
+      %a{href: story.url, target: :new}
+        = story.url
+
+
+
+  .list-group-item
+    %form(action='add_story' method='post')
+      .input-group
+        %input.form-control(name='url' placeholder='https://www.fanfiction.com/s/#story_id' required)
+        %span.input-group-btn
+          %button.btn.btn-defaul(type='submit')
+            %span.glyphicon.glyphicon-plus
