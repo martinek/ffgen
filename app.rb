@@ -74,6 +74,11 @@ get '/preview' do
   FanficStory.preview(params['url'])
 end
 
+get '/status' do
+  content_type :json
+  { status: 'ok' }.to_json
+end
+
 #get '/:handle' do
 #
 #  @profile = Fanfic::Profile.new(params[:handle])
