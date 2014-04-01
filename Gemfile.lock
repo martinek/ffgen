@@ -48,6 +48,7 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.2)
       rack
+    rake (10.1.1)
     rubyzip (1.1.2)
     sax-machine (0.2.1)
       nokogiri (~> 1.6.0)
@@ -78,6 +79,7 @@ DEPENDENCIES
   nokogiri
   pg
   pry
+  rake
   sinatra
   sinatra-activerecord
   standalone_migrations
