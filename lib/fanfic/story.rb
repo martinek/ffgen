@@ -25,6 +25,10 @@ module Fanfic
       'fanfiction.net'
     end
 
+    def one_shot?
+      @chapters.count == 0
+    end
+
     def load_details
       puts "Loading details from: #{uri}"
 
@@ -52,16 +56,14 @@ module Fanfic
             title: option.text[/\d+. (.*)/, 1],
             body: ''
         }
-      end
+      end.uniq
 
-      if @chapters.count == 0
+      if one_shot?
         @chapters << {
             id: 0,
             title: @title,
             body: Story.get_text(doc.xpath('//*[@id="storytext"]'))
         }
-      else
-        load_chapters
       end
     end
 
