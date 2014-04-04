@@ -11,7 +11,7 @@ Dir['./models/*.rb'].each do |file|
 end
 
 get '/' do
-  @stories = Story.all
+  @stories = Story.order(read: :asc, created_at: :desc)
   haml :index
 end
 
@@ -39,9 +39,14 @@ end
 
 post '/delete_story' do
   story = Story.find(params['id'])
-
   story.delete
+  redirect '/'
+end
 
+post '/toggle_read' do
+  story = Story.find(params['id'])
+  story.read = !story.read
+  story.save
   redirect '/'
 end
 
