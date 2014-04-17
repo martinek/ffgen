@@ -5,20 +5,23 @@ module Fanfic
     attr_accessor :id, :identifier,
                   :title, :author,
                   :published_at, :publisher,
-                  :rating, :language, :genre, :chapters
+                  :rating, :language, :genre, :chapters,
+                  :domain
 
     def initialize(uri)
-      @id = uri[/(http|https):\/\/(www|m)?.fanfiction.net\/s\/(\d+).*/, 3]
+      #https://www.fictionpress.com/s/3172150/1/r9kElsa-Is-Suffering
+      @id = uri[/(http|https):\/\/(www|m)?.(fanfiction.net|fictionpress.com)\/s\/(\d+).*/, 4]
+      @domain = uri[/(http|https):\/\/(www|m)?.(fanfiction.net|fictionpress.com)\/s\/(\d+).*/, 3]
       raise Exception.new "Cannot parse uri: #{uri}" unless id
       @chapters_loaded = false
     end
 
     def uri
-      Story.uri(id)
+      "https://www.#{domain}/s/#{id}"
     end
 
     def chapter_uri(chapter_id)
-      "https://www.fanfiction.net/s/#{id}/#{chapter_id}"
+      "https://www.#{domain}/s/#{id}/#{chapter_id}"
     end
 
     def publisher
