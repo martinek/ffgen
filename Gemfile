@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'thin'
+
 gem 'rake'
 gem 'sinatra'
 gem 'haml'

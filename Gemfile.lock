@@ -21,7 +21,9 @@ GEM
     builder (3.1.4)
     coderay (1.1.0)
     curb (0.8.5)
+    daemons (1.1.9)
     dotenv (0.9.0)
+    eventmachine (1.0.3)
     feedjira (1.1.0)
       curb (~> 0.8.1)
       loofah (~> 1.2.1)
@@ -62,6 +64,10 @@ GEM
     slop (3.5.0)
     standalone_migrations (2.0.4)
       standalone_migrations
+    thin (1.6.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 1.0.0)
+      rack (>= 1.0.0)
     thread_safe (0.3.1)
       atomic (>= 1.1.7, < 2)
     tilt (1.4.1)
@@ -83,3 +89,4 @@ DEPENDENCIES
   sinatra
   sinatra-activerecord
   standalone_migrations
+  thin
