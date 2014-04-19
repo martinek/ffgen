@@ -84,6 +84,30 @@ get '/status' do
   { status: 'ok' }.to_json
 end
 
+# extra generator from form
+
+get '/ebook_form' do
+  @params = GeneratorParams.new
+
+  haml :ebook_form
+end
+
+post '/generate.epub' do
+  @params = GeneratorParams.new(params['book'])
+
+  if @params.valid?
+    gen = Generator.new
+    gen.build(@params)
+
+    content_type 'application/epub+zip'
+    attachment "#{@params.title.gsub(' ', '_')}.epub"
+    gen.result_stream.string
+  else
+    haml :ebook_form
+  end
+
+end
+
 #get '/:handle' do
 #
 #  @profile = Fanfic::Profile.new(params[:handle])
