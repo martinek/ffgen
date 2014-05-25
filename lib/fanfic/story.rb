@@ -128,8 +128,8 @@ module Fanfic
       doc
     end
 
-    def self.uri(story_id)
-      "https://www.fanfiction.net/s/#{story_id}"
+    def self.uri(story_id, domain = 'https://www.fanfiction.net/')
+      "#{domain}s/#{story_id}"
     end
 
   end
