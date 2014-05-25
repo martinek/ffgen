@@ -1,5 +1,6 @@
 module Fanfic
 
+  # Class used for downloading and parsing story details
   class Story
 
     attr_accessor :id, :identifier,
@@ -32,6 +33,8 @@ module Fanfic
       @chapters.count <= 1
     end
 
+    # Loads story details and chapters with titles from story url generated from id and domain
+    # If story is oneshot, also fills in chapter body
     def load_details
       puts "Loading details from: #{uri}"
 
@@ -72,6 +75,8 @@ module Fanfic
       puts "Loaded details of story: #{@title} (#{@identifier})"
     end
 
+    # Loads all of the chapters from story
+    # Loading is done in 8 parallel threads to save some time
     def load_chapters
       if chapters.any?
         fetch_queue = Queue.new
@@ -93,6 +98,7 @@ module Fanfic
       end
     end
 
+    # Loads and parses story body and returns it as string
     def self.preview(url)
       raise ArgumentError.new "Missing argument: url" unless url
 
@@ -102,6 +108,7 @@ module Fanfic
       body.to_s
     end
 
+    # Parses story body. Replaces <hr> tags for "<p>--- === ---</p>" and remove <br> tags.
     def self.get_text(node)
       node.search('.//hr').each do |hr|
         hr.name = 'p'
@@ -113,6 +120,8 @@ module Fanfic
       node.inner_html
     end
 
+    # Loads story form url or from file. This was used for debugging to prevent repeating requests to live sites.
+    # Could be used for caching in future.
     def self.story(url)
       file_name = 'test.xml'
       if File.exist? file_name
@@ -128,6 +137,7 @@ module Fanfic
       doc
     end
 
+    # Generates story url from story id and/or domain
     def self.uri(story_id, domain = 'https://www.fanfiction.net/')
       "#{domain}s/#{story_id}"
     end

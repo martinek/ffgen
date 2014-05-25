@@ -1,3 +1,5 @@
+# This generates ePub file from story class
+# GEPUB gem is used for ePub generation
 class Generator
 
   attr_accessor :book

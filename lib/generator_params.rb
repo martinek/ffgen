@@ -1,3 +1,4 @@
+# This class is used as proxy for generating ePub from form.
 class GeneratorParams
 
   attr_accessor :identifier, :title, :author, :publisher, :published_at, :chapters

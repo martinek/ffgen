@@ -1,5 +1,6 @@
 module Fanfic
 
+  # Class used for downloading and parsing user profile
   class Profile
 
     attr_accessor :handle
