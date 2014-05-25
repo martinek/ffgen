@@ -25,7 +25,7 @@ module Fanfic
     end
 
     def publisher
-      'fanfiction.net'
+      domain
     end
 
     def one_shot?
