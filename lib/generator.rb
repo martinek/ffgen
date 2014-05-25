@@ -16,7 +16,7 @@ class Generator
     book.ordered {
       story.chapters.each do |chapter|
         book.add_item("text/chap#{chapter[:id]}.xhtml")
-            .add_content(StringIO.new("<html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>#{chapter[:title]}</title></head><body>#{chapter[:body]}</body></html>"))
+            .add_content(StringIO.new("<html xmlns=\"http://www.w3.org/1999/xhtml\"><head><title>#{Rack::Utils.escape_html(chapter[:title])}</title></head><body>#{chapter[:body]}</body></html>"))
             .toc_text(chapter[:title])
       end
     }
