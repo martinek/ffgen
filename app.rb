@@ -15,41 +15,41 @@ get '/' do
   haml :index
 end
 
-post '/add_story' do
-  url = params['url']
+# post '/add_story' do
+#   url = params['url']
+#
+#   #if url
+#   #  story = Fanfic::Story.new(url)
+#   #  title = url.split('/')[6]
+#   #
+#   #  if title
+#   #    title = title.gsub '-', ' '
+#   #  else
+#   #    story.load_details
+#   #    title = story.title
+#   #  end
+#   #
+#   #  Story.create(story_id: story.id, title: title, read: false)
+#   #end
+#
+#   Story.create(url: url, read: false)
+#
+#   redirect '/'
+# end
 
-  #if url
-  #  story = Fanfic::Story.new(url)
-  #  title = url.split('/')[6]
-  #
-  #  if title
-  #    title = title.gsub '-', ' '
-  #  else
-  #    story.load_details
-  #    title = story.title
-  #  end
-  #
-  #  Story.create(story_id: story.id, title: title, read: false)
-  #end
-
-  Story.create(url: url, read: false)
-
-  redirect '/'
-end
-
-post '/delete_story' do
-  story = Story.find(params['id'])
-  story.delete
-  redirect '/'
-end
-
-post '/toggle_read' do
-  story = Story.find(params['id'])
-  story.read = !story.read
-  story.save
-  redirect '/'
-end
-
+# post '/delete_story' do
+#   story = Story.find(params['id'])
+#   story.delete
+#   redirect '/'
+# end
+#
+# post '/toggle_read' do
+#   story = Story.find(params['id'])
+#   story.read = !story.read
+#   story.save
+#   redirect '/'
+# end
+#
 get '/feed' do
   uri = 'https://www.fanfiction.net/atom/l/?&cid1=10896&r=103&s=1'
 
