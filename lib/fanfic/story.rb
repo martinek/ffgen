@@ -68,6 +68,8 @@ module Fanfic
             body: Story.get_text(doc.xpath('//*[@id="storytext"]'))
         }
       end
+
+      puts "Loaded details of story: #{@title} (#{@identifier})"
     end
 
     def load_chapters
@@ -75,17 +77,19 @@ module Fanfic
         fetch_queue = Queue.new
         chapters.each { |chap| fetch_queue.push(chap) }
 
+        puts "Loading #{chapters.size} chapters of story: #{@title} (#{@identifier})"
         (1..8).map do |i|
-          puts "Starting thread ##{i}"
+          # puts "Starting thread ##{i}"
           Thread.new(fetch_queue) do |queue|
             while chap = queue.pop(true) rescue nil
               chap_uri = chapter_uri(chap[:id])
-              puts "Loading chapter in thread ##{i} #{chap[:id]}. - #{chap[:title]}: #{chap_uri}"
+              # puts "Loading chapter in thread ##{i} #{chap[:id]}. - #{chap[:title]}: #{chap_uri}"
               doc = Nokogiri::HTML(open(chap_uri))
               chap[:body] = Story.get_text(doc.xpath('//*[@id="storytext"]'))
             end
           end
         end.each(&:join)
+        puts "Loaded chapters of story: #{@title} (#{@identifier})"
       end
     end
 
