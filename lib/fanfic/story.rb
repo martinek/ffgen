@@ -29,7 +29,7 @@ module Fanfic
     end
 
     def one_shot?
-      @chapters.count == 0
+      @chapters.count <= 1
     end
 
     def load_details
