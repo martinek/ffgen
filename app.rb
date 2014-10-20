@@ -56,6 +56,7 @@ end
 
 # Used for generating epub from url passed via parameter
 post '/story.epub' do
+  t0 = Time.now
 
   # Create story object
   story = Fanfic::Story.new(params['url'])
@@ -68,6 +69,9 @@ post '/story.epub' do
   # Generator is used for ePub generation
   gen = Generator.new
   gen.build(story)
+
+  message = "#{story.title} (#{story.uri}) > #{Time.now - t0} sec"
+  HipchatNotificator.notify message
 
   # Output ePub to browser named by the story title
   content_type 'application/epub+zip'

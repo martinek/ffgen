@@ -14,6 +14,7 @@ gem 'pg'
 gem 'nokogiri'
 gem 'feedjira'
 gem 'gepub'
+gem 'hipchat'
 
 gem 'dotenv'
 
