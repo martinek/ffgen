@@ -3,55 +3,13 @@ require 'dotenv'
 Dotenv.load
 
 require 'sinatra'
-require 'sinatra/activerecord'
-require './config/environments' #database configuration
 
 Dir['./models/*.rb'].each do |file|
   require file
 end
 
 get '/' do
-  @stories = Story.order(read: :asc, created_at: :desc)
   haml :index
-end
-
-
-# These are used for adding, removing and marking stories in database.
-#
-# post '/add_story' do
-#   url = params['url']
-#
-#   Story.create(url: url, read: false)
-#
-#   redirect '/'
-# end
-#
-# post '/delete_story' do
-#   story = Story.find(params['id'])
-#   story.delete
-#   redirect '/'
-# end
-#
-# post '/toggle_read' do
-#   story = Story.find(params['id'])
-#   story.read = !story.read
-#   story.save
-#   redirect '/'
-# end
-
-# Used for displaying last stories from Frozen (default)
-# feed bo be used can also be passed via 'feed' parameter
-get '/feed' do
-  uri = 'https://www.fanfiction.net/atom/l/?&cid1=10896&r=103&s=1'
-
-  if params['feed']
-    feed = params.delete 'feed'
-    uri = feed + params.to_query
-  end
-
-  # RSS feed is parsed using Feedjira gem. See feed.haml for details of what is printed out
-  @feed = Feedjira::Feed.fetch_and_parse(uri)
-  haml :feed
 end
 
 # Used for generating epub from url passed via parameter
@@ -115,12 +73,3 @@ post '/generate.epub' do
   end
 
 end
-
-# This would be used for user profile display
-#get '/:handle' do
-#
-#  @profile = Fanfic::Profile.new(params[:handle])
-#
-#
-#  haml :profile
-#end

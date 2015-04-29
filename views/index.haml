@@ -29,39 +29,3 @@
           %button.btn.btn-primary.btn-block(type='submit')
             %span.glyphicon.glyphicon-download
             Search Frozen category
-
-  .list-group.text-center
-    %a.list-group-item(href='/feed') Feed
--#
--#.list-group
--#  .list-group-item.text-center
--#    %h4 To read list
--#
--#  .list-group-item
--#    %form(action='add_story' method='post')
--#      .input-group
--#        %input.form-control(name='url' placeholder='https://www.fanfiction.com/s/#story_id' required)
--#        %span.input-group-btn
--#          %button.btn.btn-defaul(type='submit')
--#            %span.glyphicon.glyphicon-plus
--#
--#  - @stories.each do |story|
--#    .list-group-item{class: ('list-group-item-success' if story.read)}
--#      %form(action='delete_story' method='post')
--#        %button.btn.btn-danger.btn-xs.pull-right(type='submit' name='id'){value: story.id}
--#          %span.glyphicon.glyphicon-remove
--#
--#      %form(action='toggle_read' method='post')
--#        %button.btn.btn-success.btn-xs.pull-right(type='submit' name='id' style='margin-right: 10px;'){value: story.id}
--#          %span.glyphicon.glyphicon-check
--#
--#      %form(action='story.epub' method='post')
--#        %button.btn.btn-primary.btn-xs.pull-left(type='submit' name='url'){value: story.url}
--#          %span.glyphicon.glyphicon-download
--#
--#      &nbsp;
--#      %a{href: story.url, target: :new}
--#        = story.url
--#
--#
--#

@@ -1,7 +1,6 @@
 require 'bundler/setup'
 
 require 'date'
-require 'feedjira'
 require 'nokogiri'
 require 'open-uri'
 require 'gepub'
