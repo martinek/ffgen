@@ -7,7 +7,11 @@ class HipchatNotificator
   end
 
   def self.notify(message)
-    user.send(message)
+    begin
+      user.send(message)
+    rescue Exception => e
+      puts 'Could not notify HipChat: ' + e.message
+    end
   end
 
   private

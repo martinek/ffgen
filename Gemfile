@@ -13,4 +13,5 @@ gem 'hipchat'
 
 gem 'dotenv'
 
+gem 'shotgun'
 gem 'pry'

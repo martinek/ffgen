@@ -32,6 +32,8 @@ GEM
       rack
     rake (10.4.2)
     rubyzip (1.1.7)
+    shotgun (0.9.1)
+      rack (>= 1.0)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -54,5 +56,6 @@ DEPENDENCIES
   nokogiri
   pry
   rake
+  shotgun
   sinatra
   thin
