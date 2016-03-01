@@ -16,32 +16,46 @@ end
 post '/story.epub' do
   t0 = Time.now
 
-  # Create story object
-  story = Fanfic::Story.new(params['url'])
-  # Load story details
-  story.load_details
-  # Load all of the story chapters.
-  # If story is one shot (only one chapter), chapters don't need to be loaded as the chapter is inside the body of details.
-  story.load_chapters unless story.one_shot?
+  begin
+    # Create story object
+    story = Fanfic::Story.new(params['url'])
+    # Load story details
+    story.load_details
+    # Load all of the story chapters.
+    # If story is one shot (only one chapter), chapters don't need to be loaded as the chapter is inside the body of details.
+    story.load_chapters unless story.one_shot?
 
-  # Generator is used for ePub generation
-  gen = Generator.new
-  gen.build(story)
+    # Generator is used for ePub generation
+    gen = Generator.new
+    gen.build(story)
 
-  message = "#{story.title} (#{story.uri}) > #{Time.now - t0} sec"
-  HipchatNotificator.notify message
-  EmailNotificator.notify message
+    message = "#{story.title} (#{story.uri}) > #{Time.now - t0} sec"
+    HipchatNotificator.notify message
+    EmailNotificator.notify message
 
-  # Output ePub to browser named by the story title
-  content_type 'application/epub+zip'
-  attachment "#{story.title.gsub(' ', '_')}.epub"
-  gen.result_stream.string
+    # Output ePub to browser named by the story title
+    content_type 'application/epub+zip'
+    attachment "#{story.title.gsub(' ', '_')}.epub"
+    gen.result_stream.string
+  rescue Exception => e
+    puts "Error generating story with url '#{params['url']}': #{e.message}"
+    @message = 'Could not generate story'
+    @error = e
+    haml :error
+  end
 end
 
 # Used for previewing one chapter of story in browser.
 # This was used for checking what story text looks like after parsing and modifications.
 get '/preview' do
-  Fanfic::Story.preview(params['url'])
+  begin
+    Fanfic::Story.preview(params['url'])
+  rescue Exception => e
+    puts "Error previewing url '#{params['url']}': #{e.message}"
+    @message = 'Could not preview story'
+    @error = e
+    haml :error
+  end
 end
 
 # Can be used to keep application alive on heroku by pinging app.
