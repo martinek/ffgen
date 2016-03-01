@@ -11,6 +11,7 @@ gem 'nokogiri'
 gem 'gepub'
 gem 'hipchat'
 gem 'postmark'
+gem 'httparty'
 
 gem 'dotenv'
 

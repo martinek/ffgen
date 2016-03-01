@@ -40,7 +40,7 @@ module Fanfic
 
       @identifier = uri
 
-      doc = Nokogiri::HTML(open(uri))
+      doc = Nokogiri::HTML(HTTParty.get(uri, timeout: 5))
 
       @title = doc.xpath('//*[@id="profile_top"]/b')[0].text
       @author = doc.xpath('//*[@id="profile_top"]/a[1]')[0].text
@@ -89,7 +89,7 @@ module Fanfic
             while chap = queue.pop(true) rescue nil
               chap_uri = chapter_uri(chap[:id])
               # puts "Loading chapter in thread ##{i} #{chap[:id]}. - #{chap[:title]}: #{chap_uri}"
-              doc = Nokogiri::HTML(open(chap_uri))
+              doc = Nokogiri::HTML(HTTParty.get(chap_uri, timeout: 5))
               chap[:body] = Story.get_text(doc.xpath('//*[@id="storytext"]'))
             end
           end
@@ -103,7 +103,7 @@ module Fanfic
       raise ArgumentError.new "Missing argument: url" unless url
 
       #doc = self.story(url)
-      doc = Nokogiri::HTML(open(url))
+      doc = Nokogiri::HTML(HTTParty.get(url, timeout: 5))
       body = get_text(doc.xpath('//*[@id="storytext"]'))
       body.to_s
     end
@@ -130,7 +130,7 @@ module Fanfic
         doc = Nokogiri::XML(buffer)
       else
         puts "Loading from url: #{url}"
-        doc = Nokogiri::HTML(open(url))
+        doc = Nokogiri::HTML(HTTParty.get(url, timeout: 5))
         File.open(file_name, 'w') {|f| doc.write_xml_to f}
       end
 

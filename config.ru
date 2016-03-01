@@ -2,7 +2,6 @@ require 'bundler/setup'
 
 require 'date'
 require 'nokogiri'
-require 'open-uri'
 require 'gepub'
 
 require 'pry'
