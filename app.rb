@@ -30,6 +30,7 @@ post '/story.epub' do
 
   message = "#{story.title} (#{story.uri}) > #{Time.now - t0} sec"
   HipchatNotificator.notify message
+  EmailNotificator.notify message
 
   # Output ePub to browser named by the story title
   content_type 'application/epub+zip'

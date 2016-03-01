@@ -7,6 +7,7 @@ class HipchatNotificator
   end
 
   def self.notify(message)
+    return unless enabled?
     begin
       user.send(message)
     rescue Exception => e
