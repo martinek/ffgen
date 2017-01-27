@@ -32,6 +32,7 @@ post '/story.epub' do
     message = "#{story.title} (#{story.uri}) > #{Time.now - t0} sec"
     HipchatNotificator.notify message
     EmailNotificator.notify message
+    SlackNotificator.notify message
 
     # Output ePub to browser named by the story title
     content_type 'application/epub+zip'
@@ -43,6 +44,14 @@ post '/story.epub' do
     @error = e
     haml :error
   end
+end
+
+get '/test_notify' do
+  message = 'Test message'
+  HipchatNotificator.notify message
+  EmailNotificator.notify message
+  SlackNotificator.notify message
+  { status: 'ok' }.to_json
 end
 
 # Used for previewing one chapter of story in browser.

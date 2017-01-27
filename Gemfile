@@ -12,6 +12,7 @@ gem 'gepub'
 gem 'hipchat'
 gem 'postmark'
 gem 'httparty'
+gem 'slack-notifier'
 
 gem 'dotenv'
 
